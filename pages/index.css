@@ -20,3 +20,12 @@
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__subline/profile__subline.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
+
+@import url(../blocks/cards/cards.css);
+
+@import url(../blocks/card/card.css);
+@import url(../blocks/card/__item/card__item.css);
+@import url(../blocks/card/__photo/card__photo.css);
+@import url(../blocks/card/__container/card__container.css);
+@import url(../blocks/card/__place/card__place.css);
+@import url(../blocks/card/__like/card__like.css);

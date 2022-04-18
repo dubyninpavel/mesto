@@ -1,0 +1,10 @@
+.card__like {
+    background-image: url(../../../source/like.svg);
+    background-size: cover;
+    box-sizing: border-box;
+    width: 22px;
+    height: 19px;
+    border: none;
+    background-color: white;
+    margin: 28px 20px 0 0;
+}
