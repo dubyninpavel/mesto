@@ -29,3 +29,6 @@
 @import url(../blocks/card/__container/card__container.css);
 @import url(../blocks/card/__place/card__place.css);
 @import url(../blocks/card/__like/card__like.css);
+
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
