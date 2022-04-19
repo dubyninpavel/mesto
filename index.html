@@ -20,63 +20,74 @@
                     <div class="profile__info">
                         <div class="profile__window">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
-                            <button class="profile__edit-button"></button>
+                            <button class="profile__edit-button" type="button"></button>
                         </div>
                         <h2 class="profile__subline">Исследователь океана</h2>
                     </div>
                 </div>
-                <button class="profile__add-button"></button>
+                <button class="profile__add-button" type="button"></button>
             </div>
         </section>
         <section class="cards">
             <ul class="card">
                 <li class="card__item">
-                    <img class="card__photo" src="source/bordo.jpg" alt="Бордо"></img>
+                    <img class="card__photo" src="source/bordo.jpg" alt="Бордо">
                     <div class="card__container">
                         <h2 class="card__place">Бордо</h2>
-                        <button class="card__like"></button>
+                        <button class="card__like" type="button"></button>
                     </div>
                 </li>
                 <li class="card__item">
-                    <img class="card__photo" src="source/emerald-lake.jpg" alt="Изумрудное озеро"></img>
+                    <img class="card__photo" src="source/emerald-lake.jpg" alt="Изумрудное озеро">
                     <div class="card__container">
                         <h2 class="card__place">Изумрудное озеро</h2>
-                        <button class="card__like"></button>
+                        <button class="card__like" type="button"></button>
                     </div>
                 </li>
                 <li class="card__item">
-                    <img class="card__photo" src="source/new york.jpg" alt="Нью-Йорк"></img>
+                    <img class="card__photo" src="source/new-york.jpg" alt="Нью-Йорк">
                     <div class="card__container">
                         <h2 class="card__place">Нью-Йорк</h2>
-                        <button class="card__like"></button>
+                        <button class="card__like" type="button"></button>
                     </div>
                 </li>
                 <li class="card__item">
-                    <img class="card__photo" src="source/saint petersburg.jpg" alt="Санкт-Петербург"></img>
+                    <img class="card__photo" src="source/saint-petersburg.jpg" alt="Санкт-Петербург">
                     <div class="card__container">
                         <h2 class="card__place">Санкт-Петербург</h2>
-                        <button class="card__like"></button>
+                        <button class="card__like" type="button"></button>
                     </div>
                 </li>
                 <li class="card__item">
-                    <img class="card__photo" src="source/tokyo.jpg" alt="Токио"></img>
+                    <img class="card__photo" src="source/tokyo.jpg" alt="Токио">
                     <div class="card__container">
                         <h2 class="card__place">Токио</h2>
-                        <button class="card__like"></button>
+                        <button class="card__like" type="button"></button>
                     </div>
                 </li>
                 <li class="card__item">
-                    <img class="card__photo" src="source/vladivostok.jpg" alt="Владивосток"></img>
+                    <img class="card__photo" src="source/vladivostok.jpg" alt="Владивосток">
                     <div class="card__container">
                         <h2 class="card__place">Владивосток</h2>
-                        <button class="card__like"></button>
+                        <button class="card__like" type="button"></button>
                     </div>
                 </li>
             </ul>
         </section>
-        <section class="footer">
-            <p class="footer__copyright">&copy; 2022. Павел Дубынин</p>
-        </section>
     </main>
-    <script src="script.js"></script>
+    <footer class="footer">
+        <p class="footer__copyright">&copy; 2022. Павел Дубынин</p>
+    </footer>
+    <div class="popup">
+        <div class="popup__content">
+            <button class="popup__close" type="button"></button>
+            <h2 class="popup__heading">Редактировать профиль</h2>
+            <form class="popup__form">
+                <input class="popup__name" type="text" name="name" value="Жак-Ив Кусто">
+                <input class="popup__subline" type="text" name="information" value="Исследователь океана">
+                <button class="popup__save" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+    <script src="scripts/index.js"></script>
 </body>

@@ -7,4 +7,18 @@
     background-repeat: no-repeat;
     background-position: center;
     margin: 5px 0 0 24px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.profile__edit-button:hover {
+    opacity: 0.5;
+}
+
+@media (max-width: 650px) {
+    .profile__edit-button {
+        height: 18px;
+        width: 18px;
+        margin: 0 0 0 10px;
+    }
 }

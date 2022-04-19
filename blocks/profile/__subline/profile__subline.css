@@ -4,3 +4,12 @@
     line-height: 22px;
     margin: 8px 0 0 0;
 }
+
+@media (max-width: 650px) {
+    .profile__subline {
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+        margin: 0;
+    }
+}
