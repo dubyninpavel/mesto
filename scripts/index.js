@@ -1,10 +1,10 @@
-let page = document.querySelector(".page")
-let editButton = page.querySelector(".profile__edit-button");
+const page = document.querySelector(".page")
+const editButton = page.querySelector(".profile__edit-button");
 let popup = page.querySelector(".popup");
-let closeButtonPopup = page.querySelector(".popup__close");
-let popupForm = popup.querySelector(".popup__form");
-let popupName = popupForm.querySelector(".popup__name");
-let popupSubline = popupForm.querySelector(".popup__subline");
+const closeButtonPopup = page.querySelector(".popup__close");
+const popupForm = popup.querySelector(".popup__form");
+const popupName = popupForm.querySelector(".popup__name");
+const popupSubline = popupForm.querySelector(".popup__subline");
 let profileName = page.querySelector(".profile__name");
 let profileSubline = page.querySelector(".profile__subline");
 
@@ -18,20 +18,20 @@ function onOverlayClick(event) {
     }
 }
 
-function onSubmitInfo(event) {
+function handleProfileFormSubmit(event) {
     event.preventDefault();
     togglePopup();
-    changeName();
+    changeProfileName();
 }
 
-function changeName(event) {
-    let changePopupName = popupName.value;
+function changeProfileName(event) {
+    const changePopupName = popupName.value;
     profileName.textContent = changePopupName;
-    let changePopupSubline = popupSubline.value;
+    const changePopupSubline = popupSubline.value;
     profileSubline.textContent = changePopupSubline;
 }
 
 editButton.addEventListener('click', togglePopup);
 closeButtonPopup.addEventListener('click', togglePopup);
 popup.addEventListener('click', onOverlayClick);
-popupForm.addEventListener('submit', onSubmitInfo);
+popupForm.addEventListener('submit', handleProfileFormSubmit);

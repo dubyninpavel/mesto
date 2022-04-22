@@ -1,4 +1,4 @@
-.card__container {
+.cards__container {
     display: flex;
     justify-content: space-between;
 }
