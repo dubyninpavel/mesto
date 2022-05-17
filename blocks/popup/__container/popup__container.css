@@ -7,14 +7,14 @@
 
 @media (min-width: 700px) and (max-width: 1000px) {
     .popup__container {
-        max-width: 550x;
+        max-width: 550px;
         max-height: 400px;
     }
 }
 
 @media (max-width: 699px) {
     .popup__container {
-        max-width: 350x;
+        max-width: 350px;
         max-height: 350px;
     }
 }
