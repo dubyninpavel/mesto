@@ -39,8 +39,8 @@
             <button class="popup__close" type="button"></button>
             <h2 class="popup__heading">Редактировать профиль</h2>
             <form class="popup__form" name="profile-form">
-                <input class="popup__name" type="text" name="name" value="Жак-Ив Кусто">
-                <input class="popup__subline" type="text" name="information" value="Исследователь океана">
+                <input class="popup__name" type="text" name="name" value="Жак-Ив Кусто" required>
+                <input class="popup__subline" type="text" name="information" value="Исследователь океана" required>
                 <button class="popup__save" type="submit">Сохранить</button>
             </form>
         </div>
@@ -50,8 +50,8 @@
             <button class="popup__close" type="button"></button>
             <h2 class="popup__heading">Новое место</h2>
             <form class="popup__form" name="profile-form">
-                <input class="popup__name" type="text" name="name" placeholder="Название">
-                <input class="popup__subline" type="text" name="information" placeholder="Ссылка на картинку">
+                <input class="popup__name" type="text" name="name" placeholder="Название" required>
+                <input class="popup__subline" type="url" name="information" placeholder="Ссылка на картинку" required>
                 <button class="popup__save" type="submit">Создать</button>
             </form>
         </div>
@@ -60,7 +60,7 @@
         <div class="popup__container">
             <img class="popup__image" src="#" alt="#">
             <button class="popup__close" type="button"></button>
-            <h2 class="popup__text"></h2>
+            <p class="popup__text">Название места</p>
         </div>
     </div>
     <template class="template">
@@ -68,11 +68,12 @@
             <button class="cards__delete-button" type="button"></button>
             <img class="cards__photo" src="#" alt="#">
             <div class="cards__container">
-                <h2 class="cards__place"></h2>
+                <h2 class="cards__place">Название места</h2>
                 <button class="cards__like" type="button"></button>
             </div>
         </li>
     </template>
-    <script src="scripts/index.js"></script>
+    <script src="./scripts/cards.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 </html>
