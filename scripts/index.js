@@ -57,12 +57,6 @@ function changeProfileName() {
     profileSubline.textContent = newPopupSubline;
 }
 
-function handleProfileFormSubmit(event) {
-    event.preventDefault();
-    checkContainClass(event);
-    changeProfileName();
-}
-
 function deleteCard(event) {
     const cardElement = event.target.closest(".cards__item");
     cardElement.remove(); 
@@ -99,9 +93,18 @@ function createCardTemplate(item) {
 
     cardPhoto.addEventListener('click', () => {
         openPhoto(item);
+        toogleEsc(popupPhoto);
     });
     
     return cardElement;
+}
+
+function toogleEsc(item) {
+    item.addEventListener("keydown", (evt) => {
+        if (evt.key === 'Escape') {
+            checkContainClass(evt);
+        }
+    })
 }
 
 function handleProfileFormClear() {
@@ -113,16 +116,9 @@ function renderCard(card, place) {
     place.prepend(createCardTemplate(card));
 }
 
-function handlerAddCard() {
-    const newCard = {name:popupNameCard.value, link: popupLinkCard.value};
+function handleAddCard() {
+    const newCard = {name: popupNameCard.value, link: popupLinkCard.value};
     renderCard(newCard, cardList);
-}
-
-function handleAddCardFormSubmit(event) {
-    event.preventDefault();
-    checkContainClass(event);
-    handlerAddCard();
-    popupCardForm.reset();
 }
 
 initialCards.forEach((card) => {
@@ -132,13 +128,15 @@ initialCards.forEach((card) => {
 editButton.addEventListener('click', () => {
     handleProfileFormClear();
     openPopup(popupEditProfile);
+    toogleEsc(popupEditProfile);
 });
 
 addButton.addEventListener('click', () => {
     openPopup(popupAddCards);
+    toogleEsc(popupAddCards);
 });
 
-closeButtonPopupProfile.addEventListener('click', () => {
+closeButtonPopupProfile.addEventListener('click', (evt) => {
     closePopup(popupEditProfile);
 });
 
@@ -153,6 +151,3 @@ closeButtonPopupPhoto.addEventListener('click', () => {
 popupEditProfile.addEventListener('click', onOverlayClick);
 popupAddCards.addEventListener('click', onOverlayClick);
 popupPhoto.addEventListener('click', onOverlayClick);
-
-popupProfileForm.addEventListener('submit', handleProfileFormSubmit);
-popupCardForm.addEventListener('submit', handleAddCardFormSubmit);

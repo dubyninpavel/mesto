@@ -10,7 +10,7 @@
     border-radius: 2px;
     padding: 0;
     cursor: pointer;
-    margin: 49px 0 0 0;
+    margin: 10px 0 0 0;
     border: 0;
 }
 
@@ -22,7 +22,7 @@
     .popup__save {
         width: 238px;
         height: 46px;
-        margin-top: 45px;
+        margin-top: 0;
         font-size: 14px;
         line-height: 17px;
     }
