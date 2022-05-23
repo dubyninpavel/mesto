@@ -1,6 +1,7 @@
 const page = document.querySelector(".page")
 const editButton = page.querySelector(".profile__edit-button");
 const addButton = page.querySelector(".profile__add-button");
+const popup = page.querySelector(".popup");
 const popupEditProfile = page.querySelector(".popup_edit-profile");
 const popupAddCards = page.querySelector(".popup_add-cards");
 const popupPhoto = page.querySelector(".popup_photo");
@@ -17,37 +18,33 @@ const popupSubline = popupProfileForm.querySelector(".popup__subline");
 const profileName = page.querySelector(".profile__name");
 const profileSubline = page.querySelector(".profile__subline");
 const cardList = page.querySelector(".cards__list");
+const openButtonAddCard = popupAddCards.querySelector(".popup__button");
+const ESC__CODE = "Escape";
+
+function checkPressEsc(evt) {
+    if (evt.key === ESC__CODE) {
+        const openedPopup = page.querySelector(".popup_is-active");
+        closePopup(openedPopup);
+    }
+}
 
 function openPopup(item) {
     item.classList.add("popup_is-active");
+    item.addEventListener('mousedown', (evt) => {
+        const checkTargetOverlay = evt.target.classList.contains("popup_is-active");
+        const checkTargetButtonClose = evt.target.classList.contains("popup__close");
+        if (checkTargetOverlay) {
+            closePopup(evt.target);
+        } else if (checkTargetButtonClose) {
+            closePopup(evt.currentTarget);
+        }
+    });
+    page.addEventListener('keydown', checkPressEsc);
 }
 
 function closePopup(item) {
     item.classList.remove("popup_is-active");
-}
-
-function onOverlayClick(event) {
-    if (event.target === event.currentTarget) {
-        checkContainClass(event);
-    }
-}
-
-function checkContainClass(item) {
-    if (item.path.some(function (className) {
-        return className === popupEditProfile;
-    })) {
-        closePopup(popupEditProfile);
-    }
-    else if (item.path.some(function (className) {
-        return className === popupAddCards;
-    })) {
-        closePopup(popupAddCards);
-    }
-    else if (item.path.some(function (className) {
-        return className === popupPhoto;
-    })) {
-        closePopup(popupPhoto);
-    }
+    page.removeEventListener('keydown', checkPressEsc);
 }
 
 function changeProfileName() {
@@ -66,13 +63,19 @@ function openPhoto(item) {
     const popupImage = popupPhoto.querySelector(".popup__image");
     const popupText = popupPhoto.querySelector(".popup__text");
     popupImage.setAttribute("src", item.link);
-    popupText.setAttribute("alt", item.name);
+    popupImage.setAttribute("alt", item.name);
     popupText.textContent = item.name;
     openPopup(popupPhoto);
 }
 
 function handleLikeCard(item) {
     item.classList.toggle("cards__like_active");
+}
+
+function handleProfileFormSubmit() {
+    changeProfileName();
+    closePopup(popupEditProfile);
+    
 }
 
 function createCardTemplate(item) {
@@ -93,18 +96,9 @@ function createCardTemplate(item) {
 
     cardPhoto.addEventListener('click', () => {
         openPhoto(item);
-        toogleEsc(popupPhoto);
     });
     
     return cardElement;
-}
-
-function toogleEsc(item) {
-    item.addEventListener("keydown", (evt) => {
-        if (evt.key === 'Escape') {
-            checkContainClass(evt);
-        }
-    })
 }
 
 function handleProfileFormClear() {
@@ -121,6 +115,14 @@ function handleAddCard() {
     renderCard(newCard, cardList);
 }
 
+function handleAddCardFormSubmit() {
+    handleAddCard();
+    closePopup(popupAddCards);
+    popupCardForm.reset();
+    openButtonAddCard.setAttribute('disabled', true);
+    openButtonAddCard.classList.add("popup__button_disabled");
+}
+
 initialCards.forEach((card) => {
     renderCard(card, cardList);
 });
@@ -128,26 +130,11 @@ initialCards.forEach((card) => {
 editButton.addEventListener('click', () => {
     handleProfileFormClear();
     openPopup(popupEditProfile);
-    toogleEsc(popupEditProfile);
 });
 
 addButton.addEventListener('click', () => {
     openPopup(popupAddCards);
-    toogleEsc(popupAddCards);
 });
 
-closeButtonPopupProfile.addEventListener('click', (evt) => {
-    closePopup(popupEditProfile);
-});
-
-closeButtonPopupCards.addEventListener('click', () => {
-    closePopup(popupAddCards);
-});
-
-closeButtonPopupPhoto.addEventListener('click', () => {
-    closePopup(popupPhoto);
-});
-
-popupEditProfile.addEventListener('click', onOverlayClick);
-popupAddCards.addEventListener('click', onOverlayClick);
-popupPhoto.addEventListener('click', onOverlayClick);
+popupProfileForm.addEventListener('submit', handleProfileFormSubmit);
+popupCardForm.addEventListener('submit', handleAddCardFormSubmit);

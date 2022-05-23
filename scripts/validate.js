@@ -1,15 +1,15 @@
-function showInputError(fieldsetElement, inputElement, errorMessage) {
+function showInputError(fieldsetElement, inputElement, errorMessage, config) {
     const errorElement = fieldsetElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add("popup__input_type_error");
+    inputElement.classList.add(config.inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add("popup__error_visible");
+    errorElement.classList.add(config.errorClass);
 }
 
-function hideInputError(fieldsetElement, inputElement) {
+function hideInputError(fieldsetElement, inputElement, config) {
     const errorElement = fieldsetElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove("popup__input_type_error");
+    inputElement.classList.remove(config.inputErrorClass);
     errorElement.textContent = "";
-    errorElement.classList.remove("popup__error_visible");
+    errorElement.classList.remove(config.errorClass);
 }
 
 function hasInvalidInput(inputList) {
@@ -18,59 +18,46 @@ function hasInvalidInput(inputList) {
     })
 }
 
-function toogleButtonState(inputList, buttonElement) {
+function toogleButtonState(inputList, buttonElement, config) {
     if (hasInvalidInput(inputList)) {
-        buttonElement.classList.add("popup__button_disabled");
+        buttonElement.classList.add(config.inactiveButtonClass);
         buttonElement.setAttribute('disabled', true);
     } else {
-        buttonElement.classList.remove("popup__button_disabled");
+        buttonElement.classList.remove(config.inactiveButtonClass);
         buttonElement.removeAttribute('disabled');
     }
 }
 
-function checkInputValidaty(fieldsetElement, inputElement) {
+function checkInputValidaty(fieldsetElement, inputElement, config) {
     if (!inputElement.validity.valid) {
-        showInputError(fieldsetElement, inputElement, inputElement.validationMessage);
+        showInputError(fieldsetElement, inputElement, inputElement.validationMessage, config);
     } else {
-        hideInputError(fieldsetElement, inputElement);
+        hideInputError(fieldsetElement, inputElement, config);
     }
 }
 
-function setEventListeners(fieldsetElement) {
-    const inputList = Array.from(fieldsetElement.querySelectorAll(".popup__input"));
-    const buttonElement = fieldsetElement.querySelector(".popup__button");
-    toogleButtonState(inputList, buttonElement);
+function setEventListeners(formElement, config) {
+    const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+    const buttonElement = formElement.querySelector(config.submitButtonSelector);
+    toogleButtonState(inputList, buttonElement, config);
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
-            checkInputValidaty(fieldsetElement, inputElement);
-            toogleButtonState(inputList, buttonElement);
+            checkInputValidaty(formElement, inputElement, config);
+            toogleButtonState(inputList, buttonElement, config);
         });
     })
 }
 
 
-function enableValidation(obj) {
-    Object.values(obj).forEach((objValue) => {
-        const formList = Array.from(document.querySelectorAll(objValue));
-        formList.forEach((formElement) => {
-            formElement.addEventListener('submit', (evt) => {
-                evt.preventDefault();
-                checkContainClass(evt);
-                if (evt.target.classList.contains('popup__form_profile')) {
-                    changeProfileName();
-                } else if (evt.target.classList.contains('popup__form_card')) {
-                    handleAddCard();
-                    formElement.reset();
-                }
-                
-            });
-            const fieldsetList = Array.from(formElement.querySelectorAll(".popup__fieldset"));
-            fieldsetList.forEach((fieldsetElement) => {
-                setEventListeners(fieldsetElement);
-            })
+function enableValidation(config) {
+    const formList = Array.from(document.querySelectorAll(config.formSelector));
+    formList.forEach((formElement) => {
+        formElement.addEventListener('submit', (evt) => {
+            evt.preventDefault();
         });
-    })    
-  }
+        setEventListeners(formElement, config);
+    })   
+}
 
 enableValidation({
     formSelector: '.popup__form',
