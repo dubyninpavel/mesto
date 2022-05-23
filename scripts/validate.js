@@ -1,12 +1,12 @@
 function showInputError(fieldsetElement, inputElement, errorMessage) {
-    const errorElement = fieldsetElement.querySelector(`.${inputElement.id}_error`);
+    const errorElement = fieldsetElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add("popup__input_type_error");
     errorElement.textContent = errorMessage;
     errorElement.classList.add("popup__error_visible");
 }
 
 function hideInputError(fieldsetElement, inputElement) {
-    const errorElement = fieldsetElement.querySelector(`.${inputElement.id}_error`);
+    const errorElement = fieldsetElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove("popup__input_type_error");
     errorElement.textContent = "";
     errorElement.classList.remove("popup__error_visible");
