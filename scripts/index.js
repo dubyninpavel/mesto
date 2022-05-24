@@ -28,22 +28,25 @@ function checkPressEsc(evt) {
     }
 }
 
+function checkPressClosePopup(evt) {
+    const checkTargetOverlay = evt.target.classList.contains("popup_is-active");
+    const checkTargetButtonClose = evt.target.classList.contains("popup__close");
+    if (checkTargetOverlay) {
+        closePopup(evt.target);
+    } else if (checkTargetButtonClose) {
+        closePopup(evt.currentTarget);
+    }
+}
+
 function openPopup(item) {
     item.classList.add("popup_is-active");
-    item.addEventListener('mousedown', (evt) => {
-        const checkTargetOverlay = evt.target.classList.contains("popup_is-active");
-        const checkTargetButtonClose = evt.target.classList.contains("popup__close");
-        if (checkTargetOverlay) {
-            closePopup(evt.target);
-        } else if (checkTargetButtonClose) {
-            closePopup(evt.currentTarget);
-        }
-    });
+    item.addEventListener('mousedown', checkPressClosePopup);
     page.addEventListener('keydown', checkPressEsc);
 }
 
 function closePopup(item) {
     item.classList.remove("popup_is-active");
+    item.removeEventListener('mousedown', checkPressClosePopup);
     page.removeEventListener('keydown', checkPressEsc);
 }
 
