@@ -23,4 +23,6 @@ const initialCards = [
       name: 'Владивосток',
       link: 'images/vladivostok.jpg'
     }
-  ];
+];
+
+export { initialCards };
