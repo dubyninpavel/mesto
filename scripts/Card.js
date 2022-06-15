@@ -1,23 +1,22 @@
-import { openPopup } from "./index.js";
+import { openPopup } from "./Popup.js";
+import { popupPhoto, popupImage, popupText } from "./constants.js";
 
 class Card {
-
-  _name;
-  _link;
-  _cardTemplate;
 
   constructor (data, cardTemplate) {
     this._name = data.name;
     this._link = data.link;
     this._cardTemplate = cardTemplate;
+    this._cardElement = this.createCardTemplate();
   }
 
   createCardTemplate() {
-    const cardElement = this._cardTemplate.content.cloneNode(true);
-    const cardPhoto = cardElement.querySelector(".cards__photo");
-    const cardPlaceName = cardElement.querySelector(".cards__place");
-    const cardLikeButton = cardElement.querySelector(".cards__like");
-    const deleteButton = cardElement.querySelector('.cards__delete-button');
+    this._cardElement = this._cardTemplate.content.cloneNode(true);
+    const cardPhoto = this._cardElement.querySelector(".cards__photo");
+    const cardPlaceName = this._cardElement.querySelector(".cards__place");
+    const cardLikeButton = this._cardElement.querySelector(".cards__like");
+    const deleteButton = this._cardElement.querySelector('.cards__delete-button');
+    const cardItem = this._cardElement.querySelector(".cards__item");
     cardPhoto.setAttribute("src", this._link);
     cardPhoto.setAttribute("alt", this._name);
     cardPlaceName.textContent = this._name;
@@ -26,29 +25,27 @@ class Card {
       this._handleLikeCard(cardLikeButton);
     });
     
-    deleteButton.addEventListener('click', (evt) => {
-      this._deleteCard(evt)});
+    deleteButton.addEventListener('click', () => {
+      this._deleteCard(cardItem);
+    });
 
     cardPhoto.addEventListener('click', () => {
       this._openPhoto();
     });
-    
-    return cardElement;
+    console.log(this._cardElement);
+    return this._cardElement;
   }
 
   _openPhoto() {
-    const popupPhoto = document.querySelector(".popup_photo");
-    const popupImage = popupPhoto.querySelector(".popup__image");
-    const popupText = popupPhoto.querySelector(".popup__text");
     popupImage.setAttribute("src", this._link);
     popupImage.setAttribute("alt", this._name);
     popupText.textContent = this._name;
     openPopup(popupPhoto);
   }
-
-  _deleteCard(evt) {
-    const cardElement = evt.target.closest(".cards__item");
-    cardElement.remove(); 
+  
+  _deleteCard(cardItem) {
+    cardItem.remove();
+    this._cardElement = null;
   }
 
   _handleLikeCard(item) {

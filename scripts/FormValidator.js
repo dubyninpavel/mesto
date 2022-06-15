@@ -9,9 +9,6 @@ const dataValidation = {
 
 class FormValidator {
 
-    _dataValidation;
-    _elementFormValidation;
-
     constructor (dataValidation, elementFormValidation) {
         this._dataValidation = dataValidation;
         this._elementFormValidation = elementFormValidation;
@@ -62,9 +59,15 @@ class FormValidator {
         }
     }
 
+    _setButtonDisabled(buttonElement) {
+        buttonElement.setAttribute('disabled', true);
+        buttonElement.classList.add("popup__button_disabled");
+    }
+
     _setEventListeners() {
         const inputList = Array.from(this._elementFormValidation.querySelectorAll(this._dataValidation.inputSelector));
         const buttonElement = this._elementFormValidation.querySelector(this._dataValidation.submitButtonSelector);
+        this._setButtonDisabled(buttonElement);
         this._toogleButtonState(inputList, buttonElement);
         inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
