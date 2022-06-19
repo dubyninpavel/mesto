@@ -1,3 +1,5 @@
+import { ESC__CODE } from "./constants.js";
+
 function openPopup(item) {
     item.classList.add("popup_is-active");
     item.addEventListener('mousedown', checkPressClosePopup);
@@ -11,7 +13,6 @@ function closePopup(item) {
 }
 
 function checkPressEsc(evt) {
-    const ESC__CODE = "Escape";
     if (evt.key === ESC__CODE) {
         const openedPopup = document.querySelector(".popup_is-active");
         closePopup(openedPopup);

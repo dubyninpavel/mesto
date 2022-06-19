@@ -53,17 +53,17 @@ initialCards.forEach((card) => {
 });
 
 const formProfileValidator = new FormValidator(dataValidation, popupProfileForm);
+formProfileValidator.enableValidation();
 
 editButton.addEventListener('click', () => {
     handleProfileFormClear();
-    formProfileValidator.enableValidation();
     openPopup(popupEditProfile);
 });
 
 const formCardValidator = new FormValidator(dataValidation, popupCardForm);
+formCardValidator.enableValidation();
 
 addButton.addEventListener('click', () => {
-    formCardValidator.enableValidation();
     openPopup(popupAddCards);
 });
 

@@ -32,7 +32,6 @@ class Card {
     cardPhoto.addEventListener('click', () => {
       this._openPhoto();
     });
-    console.log(this._cardElement);
     return this._cardElement;
   }
 
