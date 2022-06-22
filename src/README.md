@@ -15,5 +15,6 @@
 2. CSS - описание внешнего вида сайта.
 3. JavaScript - добавление функционала.
 4. ООП.
+5. WebPack.
 
 * [Ссылка на проект: Место](https://dubyninpavel.github.io/mesto/)

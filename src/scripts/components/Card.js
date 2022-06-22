@@ -1,12 +1,10 @@
-import { openPopup } from "./Popup.js";
-import { popupPhoto, popupImage, popupText } from "./constants.js";
+export default class Card {
 
-class Card {
-
-  constructor (data, cardTemplate) {
+  constructor ({ data, handleCardClick }, cardTemplate) {
     this._name = data.name;
     this._link = data.link;
     this._cardTemplate = cardTemplate;
+    this._handleCardClick = handleCardClick;
     this._cardElement = this.createCardTemplate();
   }
 
@@ -30,18 +28,11 @@ class Card {
     });
 
     cardPhoto.addEventListener('click', () => {
-      this._openPhoto();
+      this._handleCardClick();
     });
     return this._cardElement;
   }
 
-  _openPhoto() {
-    popupImage.setAttribute("src", this._link);
-    popupImage.setAttribute("alt", this._name);
-    popupText.textContent = this._name;
-    openPopup(popupPhoto);
-  }
-  
   _deleteCard(cardItem) {
     cardItem.remove();
     this._cardElement = null;
@@ -51,5 +42,3 @@ class Card {
     item.classList.toggle("cards__like_active");
   }
 }
-
-export { Card };
