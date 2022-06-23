@@ -12,6 +12,13 @@ export default class FormValidator {
         });
         this._setEventListeners();
     }
+    
+    clearErrorsHandler() {
+        const popupErrorText = this._elementFormValidation.querySelectorAll(".popup__input-error");
+        popupErrorText.forEach((item) => {
+            item.textContent = "";
+        })
+    }
 
     _hasInvalidInput(inputList) {
         return inputList.some((inputElement) => {

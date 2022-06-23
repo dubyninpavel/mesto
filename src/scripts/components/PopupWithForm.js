@@ -25,10 +25,6 @@ export default class PopupWithForm extends Popup {
     }
 
     close() {
-        const popupErrorText = this._popupForm.querySelectorAll(".popup__input-error");
-        popupErrorText.forEach((item) => {
-            item.textContent = "";
-        })
         super.close();
         this._popupForm.reset();
     }

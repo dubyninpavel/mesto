@@ -4,9 +4,11 @@ export default class UserInfo {
         this.profileInfoElement = document.querySelector(infoSelector);
     }
 
-    getUserInfo(item) {
-        item.popupNameElement.value = this.profileNameElement.textContent;
-        item.popupSublineElement.value = this.profileInfoElement.textContent;
+    getUserInfo() {
+        const obj = {};
+        obj.name = this.profileNameElement.textContent;
+        obj.information = this.profileInfoElement.textContent
+        return obj;
     }
 
     setUserInfo(item) {

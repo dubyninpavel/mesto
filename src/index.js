@@ -46,8 +46,10 @@ const popupProfile = new PopupWithForm({
 popupProfile.setEventListeners();
 
 editButton.addEventListener('click', () => {
+    formProfileValidator.clearErrorsHandler();
     popupProfile.open();
-    profile.getUserInfo({popupNameElement, popupSublineElement});
+    popupNameElement.value = profile.getUserInfo().name;
+    popupSublineElement.value = profile.getUserInfo().information;
 });
 
 const formCardValidator = new FormValidator(dataValidation, popupCardForm);
@@ -64,5 +66,6 @@ const popupAddCard = new PopupWithForm({
 popupAddCard.setEventListeners();
 
 addButton.addEventListener('click', () => {
+    formCardValidator.clearErrorsHandler();
     popupAddCard.open();
 });
