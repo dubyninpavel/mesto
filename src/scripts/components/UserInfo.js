@@ -1,18 +1,16 @@
-import { popupName, popupSubline, profileName, profileSubline } from "../utils/constants.js"
-
 export default class UserInfo {
-    constructor({ name, information }) {
-        this.formName = name;
-        this.formInfo = information;
+    constructor({ nameSelector, infoSelector }) {
+        this.profileNameElement = document.querySelector(nameSelector);
+        this.profileInfoElement = document.querySelector(infoSelector);
     }
 
-    getUserInfo() {
-        popupName.value = profileName.textContent;
-        popupSubline.value = profileSubline.textContent;
+    getUserInfo(item) {
+        item.popupNameElement.value = this.profileNameElement.textContent;
+        item.popupSublineElement.value = this.profileInfoElement.textContent;
     }
 
-    setUserInfo() {
-        profileName.textContent = this.formName;
-        profileSubline.textContent = this.formInfo;
+    setUserInfo(item) {
+        this.profileNameElement.textContent = item.name;
+        this.profileInfoElement.textContent = item.information;
     }
 }

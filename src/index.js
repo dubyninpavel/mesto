@@ -1,6 +1,6 @@
 import './pages/index.css';
 
-import { popupProfileForm, popupName, popupSubline, popupAddCards, popupCardForm, editButton, addButton, popupEditProfile, popupPhoto, profileName, profileSubline, cardList, cardTemplate } from "./scripts/utils/constants.js";
+import { popupProfileForm, popupNameElement, popupSublineElement, popupAddCards, popupCardForm, editButton, addButton, popupEditProfile, popupPhoto, cardList, cardTemplate } from "./scripts/utils/constants.js";
 import { initialCards } from "./scripts/utils/dataCards.js";
 import { dataValidation } from "./scripts/utils/dataValidation.js";
 import Card from "./scripts/components/Card.js";
@@ -10,57 +10,59 @@ import PopupWithImage from "./scripts/components/PopupWithImage.js";
 import PopupWithForm from "./scripts/components/PopupWithForm.js";
 import UserInfo from "./scripts/components/UserInfo.js";
 
+const popupImage = new PopupWithImage(popupPhoto);
+
+function createCard(item) {
+    const newCard = new Card({
+        data: item,
+        handleCardClick: () => {
+            popupImage.open(item);
+        }
+    }, cardTemplate);
+    return newCard;
+}
+
 const cardGridList = new Section({
     data: initialCards,
     renderer: (item) => {
-        const card = new Card({
-            data: item,
-            handleCardClick: () => {
-                const selectCard = new PopupWithImage({ data: item }, popupPhoto);
-                selectCard.openPopup();
-            }
-        }, cardTemplate);
-        const cardElement = card.createCardTemplate();
+        const cardElement = createCard(item).createCardTemplate();
         cardGridList.addItem(cardElement);
     }
 }, cardList);
 
 cardGridList.renderItems();
 
+const profile = new UserInfo({nameSelector: ".profile__name", infoSelector: ".profile__subline"});
+
 const formProfileValidator = new FormValidator(dataValidation, popupProfileForm);
 formProfileValidator.enableValidation();
-const openPopupEditProfile = new PopupWithForm({ 
-    popupSelector: popupEditProfile,
+const popupProfile = new PopupWithForm({ 
+    popupElement: popupEditProfile,
     handleForm: (dataPopup) => {
-        const profile = new UserInfo(dataPopup);
-        profile.setUserInfo();
+        profile.setUserInfo(dataPopup);
     }
 });
 
+popupProfile.setEventListeners();
+
 editButton.addEventListener('click', () => {
-    openPopupEditProfile.setEventListeners();
-    popupName.value = profileName.textContent;
-    popupSubline.value = profileSubline.textContent;
+    popupProfile.open();
+    profile.getUserInfo({popupNameElement, popupSublineElement});
 });
 
 const formCardValidator = new FormValidator(dataValidation, popupCardForm);
 formCardValidator.enableValidation();
 
-const openPopupAddCard = new PopupWithForm({
-    popupSelector: popupAddCards,
+const popupAddCard = new PopupWithForm({
+    popupElement: popupAddCards,
     handleForm: (dataPopup) => {
-        const newCard = new Card({
-            data: dataPopup,
-            handleCardClick: () => {
-                const selectCard = new PopupWithImage({ data: dataPopup }, popupPhoto);
-                selectCard.openPopup();
-            }
-        }, cardTemplate);
-        const cardElement = newCard.createCardTemplate();
+        const cardElement = createCard(dataPopup).createCardTemplate();
         cardGridList.addItem(cardElement);
     }
 });
 
+popupAddCard.setEventListeners();
+
 addButton.addEventListener('click', () => {
-    openPopupAddCard.setEventListeners();
+    popupAddCard.open();
 });

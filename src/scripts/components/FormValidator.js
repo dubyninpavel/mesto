@@ -2,11 +2,13 @@ export default class FormValidator {
     constructor (dataValidation, elementFormValidation) {
         this._dataValidation = dataValidation;
         this._elementFormValidation = elementFormValidation;
+        this._buttonElement = this._elementFormValidation.querySelector(this._dataValidation.submitButtonSelector);
     }
 
     enableValidation() {
         this._elementFormValidation.addEventListener('submit', (evt) => {
             evt.preventDefault();
+            this._setButtonDisabled(this._buttonElement);
         });
         this._setEventListeners();
     }
@@ -56,13 +58,12 @@ export default class FormValidator {
 
     _setEventListeners() {
         const inputList = Array.from(this._elementFormValidation.querySelectorAll(this._dataValidation.inputSelector));
-        const buttonElement = this._elementFormValidation.querySelector(this._dataValidation.submitButtonSelector);
-        this._setButtonDisabled(buttonElement);
-        this._toogleButtonState(inputList, buttonElement);
+        this._setButtonDisabled(this._buttonElement);
+        this._toogleButtonState(inputList, this._buttonElement);
         inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidaty(this._elementFormValidation, inputElement);
-                this._toogleButtonState(inputList, buttonElement);
+                this._toogleButtonState(inputList, this._buttonElement);
             });
         })
     }

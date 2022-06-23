@@ -1,36 +1,38 @@
 import { ESC__CODE } from "../utils/constants.js";
 
 export default class Popup {
-    constructor(popupSelector) {
-        this._popupSelector = popupSelector;
+    constructor(popupElement) {
+        this._popupElement = popupElement;
+        this.checkPressClosePopup = this._checkPressClosePopup.bind(this);
+        this.handleEscClose = this._handleEscClose.bind(this);
     }
 
-    openPopup() {
-        this._popupSelector.classList.add("popup_is-active");
+    open() {
+        this._popupElement.classList.add("popup_is-active");
         this.setEventListener();
         
     }
     
-    closePopup() {
-        this._popupSelector.classList.remove("popup_is-active");
-        this._popupSelector.removeEventListener('mousedown', this._checkPressClosePopup);
-        document.removeEventListener('keydown', this._handleEscClose);
+    close() {
+        this._popupElement.classList.remove("popup_is-active");
+        this._popupElement.removeEventListener('mousedown', this.checkPressClosePopup);
+        document.removeEventListener('keydown', this.handleEscClose);
     }
    
     setEventListener() {
-        this._popupSelector.addEventListener('mousedown', this._checkPressClosePopup.bind(this));
-        document.addEventListener('keydown', this._handleEscClose.bind(this));
+        this._popupElement.addEventListener('mousedown', this.checkPressClosePopup);
+        document.addEventListener('keydown', this.handleEscClose);
     }
 
     _handleEscClose(evt) {
         if (evt.key === ESC__CODE) {
-            this.closePopup(this._popupSelector);
+            this.close();
         }
     }
     
     _checkPressClosePopup(evt) {
         if (evt.target.classList.contains("popup__close") || evt.target.classList.contains("popup_is-active")) {
-            this.closePopup(this._popupSelector);
+            this.close();
         }
     }
 }
