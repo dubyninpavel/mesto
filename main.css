@@ -445,12 +445,18 @@ template {
     }
 }
 .profile__avatar {
-    background-image: url(6163c2039d1f0eb8d7ca.jpg);
     background-size: cover;
     box-sizing: border-box;
     width: 120px;
     height: 120px;
     border-radius: 60px;
+    z-index: 2;
+}
+
+.profile__avatar:hover {
+    cursor: pointer;
+    z-index: 1;
+    opacity: 0.5;
 }
 .profile__info {
     margin-left: 30px;
@@ -608,6 +614,8 @@ template {
     position: absolute;
     top: 21px;
     right: 20px;
+    opacity: 0;
+    visibility: hidden;
 }
 
 .cards__delete-button:hover {
@@ -624,13 +632,15 @@ template {
 .cards__container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin: 23px 0 0 0;
 }
 .cards__place {
     font-weight: 900;
     font-size: 24px;
     line-height: 29px;
     color: #000000;
-    margin: 22px 0 0 21px;
+    margin: 0 0 4px 20px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -644,7 +654,7 @@ template {
     height: 19px;
     border: none;
     background-color: white;
-    margin: 28px 20px 0 0;
+    margin: 0;
     cursor: pointer;
     padding: 0;
 }
@@ -655,6 +665,24 @@ template {
 .cards__like_active {
     opacity: 1;
     background-image: url(https://code.s3.yandex.net/web-code/dom/heart-filled.svg);
+}
+.cards__like-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 21px 0 0;
+}
+.cards__count-likes {
+    margin: 3px 0 0 0;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    color: #000000;
+}
+.cards__delete-button_active {
+    visibility: visible;
+    opacity: 1;
 }
 .footer {
     display: inline;
@@ -872,5 +900,16 @@ template {
     color: black;
     border: 1px solid #000000;
     opacity: .2;
+}
+.popup__content_delete-card {
+    max-height: 181px;
+    margin: 270px auto 0;
+}
+.popup__delete {
+    margin: 32px 0 0 0;
+}
+.popup__content_avatar {
+    max-height: 272px;
+    margin: 224px auto 0;
 }
 
