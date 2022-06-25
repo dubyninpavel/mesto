@@ -13,13 +13,13 @@
         <section class="profile">
             <div class="profile__container">
                 <div class="profile__main">
-                    <div class="profile__avatar"></div>
+                    <img class="profile__avatar" src="" alt="Аватарка">
                     <div class="profile__info">
                         <div class="profile__window">
-                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <h1 class="profile__name"></h1>
                             <button class="profile__edit-button" type="button"></button>
                         </div>
-                        <p class="profile__subline">Исследователь океана</p>
+                        <p class="profile__subline"></p>
                     </div>
                 </div>
                 <button class="profile__add-button" type="button"></button>
@@ -39,9 +39,9 @@
             <h2 class="popup__heading">Редактировать профиль</h2>
             <form class="popup__form popup__form_profile" name="profile-form" novalidate>
                 <fieldset class="popup__fieldset">
-                    <input class="popup__input popup__name" id="popup__profileName" type="text" name="name" value="Жак-Ив Кусто" placeholder="Ваше имя" minlength="2" maxlength="40" required>
+                    <input class="popup__input popup__name" id="popup__profileName" type="text" name="name" value="" placeholder="Ваше имя" minlength="2" maxlength="40" required>
                     <span class="popup__input-error popup__profileName-error"></span>
-                    <input class="popup__input popup__subline" id="popup__profileSubline" type="text" name="information" placeholder="Чем занимаетесь?" value="Исследователь океана" minlength="2" maxlength="200" required>
+                    <input class="popup__input popup__subline" id="popup__profileSubline" type="text" name="about" placeholder="Чем занимаетесь?" value="" minlength="2" maxlength="200" required>
                     <span class="popup__input-error popup__profileSubline-error"></span>
                     <button disabled class="popup__button popup__save" type="submit">Сохранить</button>
                 </fieldset>
@@ -70,13 +70,38 @@
             <p class="popup__text">Название места</p>
         </div>
     </div>
+    <div class="popup popup_delete-card">
+        <div class="popup__content popup__content_delete-card">
+            <button class="popup__close" type="button"></button>
+            <h2 class="popup__heading">Вы уверены?</h2>
+            <form>
+                <button class="popup__button popup__save popup__delete" type="submit">Да</button>
+            </form>
+        </div>
+    </div>
+    <div class="popup popup_avatar">
+        <div class="popup__content popup__content_avatar">
+            <button class="popup__close" type="button"></button>
+            <h2 class="popup__heading">Обновить аватар</h2>
+            <form class="popup__form popup__form_avatar" name="card-form" novalidate>
+                <fieldset class="popup__fieldset">
+                    <input class="popup__input popup__subline" id="popup__cardLink" type="url" name="avatar" placeholder="Ссылка на картинку" required>
+                    <span class="popup__input-error popup__cardLink-error"></span>
+                    <button class="popup__button popup__save" type="submit">Сохранить</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
     <template class="template">
         <li class="cards__item">
             <button class="cards__delete-button" type="button"></button>
             <img class="cards__photo" src="#" alt="#">
             <div class="cards__container">
                 <h2 class="cards__place">Название места</h2>
-                <button class="cards__like" type="button"></button>
+                <div class="cards__like-container">
+                    <button class="cards__like" type="button"></button>
+                    <p class="cards__count-likes"></p>
+                </div>
             </div>
         </li>
     </template>
