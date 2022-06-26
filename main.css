@@ -444,14 +444,6 @@ template {
         align-items: center;
     }
 }
-.profile__avatar {
-    display: block;
-    background-size: cover;
-    box-sizing: border-box;
-    width: 120px;
-    height: 120px;
-    border-radius: 60px;
-}
 .profile__info {
     margin-left: 30px;
     padding-top: 22px;
@@ -568,7 +560,7 @@ template {
         margin-top: 33px;
     }
 }
-.profile__container_avatar {
+.profile__avatar {
     position: relative;
     display: inline-block;
 }
@@ -587,8 +579,16 @@ template {
     background-image: url(b5e18a5e34c06a364f74.svg);
 }
 
-.profile__container_avatar:hover .profile__avatar_hover {
+.profile__avatar:hover .profile__avatar_hover {
     opacity: 1;
+}
+.profile__avatar_image {
+    display: block;
+    background-size: cover;
+    box-sizing: border-box;
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
 }
 .cards {
     display: inline;
