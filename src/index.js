@@ -1,4 +1,4 @@
-//import './styles/index.css';
+import './styles/index.css';
 
 import { popupProfileForm, profileAvatar, popupAvatar, popupFormAvatar, popupDeleteCard, popupNameElement, popupSublineElement, popupAddCards, popupCardForm, editButton, addButton, popupEditProfile, popupPhoto, cardList, cardTemplate } from "./scripts/utils/constants.js";
 import { dataValidation } from "./scripts/utils/dataValidation.js";
