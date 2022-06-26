@@ -2,9 +2,6 @@ export default class Card {
   constructor ({ data, myUserId, handleCardClick, delCardLike, setCardLike, handleCardDelete}, cardTemplate) {
     this._dataCard = data;
     this._myUserId = myUserId;
-    this._name = data.name;
-    this._link = data.link;
-    this._likes = data.likes;
     this._cardTemplate = cardTemplate;
     this._handleCardClick = handleCardClick;
     this._delCardLike = delCardLike;
@@ -32,7 +29,7 @@ export default class Card {
     this._cardPhoto.setAttribute("src", this._dataCard.link);
     this._cardPhoto.setAttribute("alt", this._dataCard.name);
     cardPlaceName.textContent = this._dataCard.name;
-    this._cardCountLike.textContent = this.countLike(this._dataCard);
+    this.getCountLike(this._dataCard);
     this._setEventListener();
     return this._cardElement;
   }
@@ -41,8 +38,8 @@ export default class Card {
     return this._dataCard._id;
   }
 
-  countLike(dateCard) {
-    return dateCard.likes.length;
+  getCountLike(dataUser) {
+    this._cardCountLike.textContent = dataUser.likes.length;
   }
 
   _setEventListener() {

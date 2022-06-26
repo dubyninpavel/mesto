@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 <body class="page">
@@ -14,7 +13,10 @@
         <section class="profile">
             <div class="profile__container">
                 <div class="profile__main">
-                    <img class="profile__avatar" src="https://topchiase24h.com/wp-content/uploads/2021/04/Hinh-nen-gau-truc-16.jpg" alt="Аватарка">
+                    <div class="profile__container_avatar">
+                        <div class="profile__avatar_hover"></div>
+                        <img class="profile__avatar" src="https://topchiase24h.com/wp-content/uploads/2021/04/Hinh-nen-gau-truc-16.jpg" alt="Аватарка">
+                    </div>
                     <div class="profile__info">
                         <div class="profile__window">
                             <h1 class="profile__name"></h1>
@@ -106,6 +108,5 @@
             </div>
         </li>
     </template>
-    <script src="./index.js" type="module"></script>
 </body>
 </html>

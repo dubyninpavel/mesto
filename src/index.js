@@ -1,4 +1,4 @@
-//import './pages/index.css';
+import './pages/index.css';
 
 import { popupProfileForm, profileAvatar, popupAvatar, popupFormAvatar, popupDeleteCard, popupNameElement, popupSublineElement, popupAddCards, popupCardForm, editButton, addButton, popupEditProfile, popupPhoto, cardList, cardTemplate } from "./scripts/utils/constants.js";
 import { dataValidation } from "./scripts/utils/dataValidation.js";
@@ -13,33 +13,19 @@ import PopupWithSubmit from "./scripts/components/PopupWithSubmit.js";
 
 let myId = "";
 
-function renderLoading(isLoading, buttonForm, textLoading, text) {
-    if (isLoading) {
-        buttonForm.textContent = textLoading;
-    } else {
-        buttonForm.textContent = text;
-    }
-}
-
 const profile = new UserInfo({nameSelector: ".profile__name", infoSelector: ".profile__subline", imageSelector: ".profile__avatar"});
 
-const dataUser = new Api('https://nomoreparties.co/v1/cohort-43/users/me');
-dataUser.getDataUser()
-    .then((dataUser) => {
-        myId = dataUser._id;
-        profile.setUserInfo(dataUser);
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-    
-const popupImage = new PopupWithImage(popupPhoto);
+const dataUser = new Api('https://nomoreparties.co/v1/cohort-43');
 
-const card = new Api('https://mesto.nomoreparties.co/v1/cohort-43/cards');
-card.getCards()
-    .then((cardsInfo) => {
+dataUser.getAllData()
+    .then((items) => {
+        const [ dataFromUserPromise, dataFromCardsPromise ] = items;
+
+        myId = dataFromUserPromise._id;
+        profile.setUserInfo(dataFromUserPromise);
+
         const cardGridList = new Section({
-            data: cardsInfo,
+            data: dataFromCardsPromise,
             renderer: (item) => {
                 const cardElement = createCard(item).createCardTemplate();
                 cardGridList.addItem(cardElement);
@@ -51,10 +37,6 @@ card.getCards()
         console.log(err);
     });
 
-const popupDelete = new PopupWithSubmit({ 
-    popupElement: popupDeleteCard
-    });
-
 function createCard(item) {
     const newCard = new Card({
         data: item,
@@ -62,10 +44,10 @@ function createCard(item) {
         handleCardClick: () => {
             popupImage.open(item);
         },
-        setCardLike: (cardCountLike) => {
-            card.setLikeCard(item._id)
+        setCardLike: () => {
+            dataUser.setLikeCard(item._id)
             .then((item) => {
-                cardCountLike.textContent = item.likes.length;
+                newCard.getCountLike(item);
                 newCard.likeCard();
             })
             .catch((err) => {
@@ -73,10 +55,10 @@ function createCard(item) {
             })
             
         },
-        delCardLike: (cardCountLike) => {
-            card.deleteLikeCard(item._id)
+        delCardLike: () => {
+            dataUser.deleteLikeCard(item._id)
             .then((item) => {
-                cardCountLike.textContent = item.likes.length;
+                newCard.getCountLike(item);
                 newCard.likeCard();
             })
             .catch((err) => {
@@ -87,7 +69,7 @@ function createCard(item) {
         handleCardDelete: (cardInfo) => {
             popupDelete.open();
             popupDelete.setHandleSubmit(() => {
-                card.deleteCard(cardInfo._dataCard._id)
+                dataUser.deleteCard(cardInfo._dataCard._id)
                     .then(() => {
                         popupDelete.close();
                         newCard.deleteCardElement();
@@ -101,12 +83,17 @@ function createCard(item) {
     return newCard;
 }
 
+const popupDelete = new PopupWithSubmit({ 
+    popupElement: popupDeleteCard
+    });
+
+
 const formProfileValidator = new FormValidator(dataValidation, popupProfileForm);
 formProfileValidator.enableValidation();
 const popupProfile = new PopupWithForm({ 
     popupElement: popupEditProfile,
-    handleForm: (dataPopup, buttonForm) => {
-        renderLoading(true, buttonForm, "Сохранение...", "");
+    handleForm: (dataPopup) => {
+        popupProfile.renderLoading(true, "Сохранение...", " ");
         dataUser.setDataUser(dataPopup)
             .then((dataUser) => {
                 profile.setUserInfo(dataUser);
@@ -115,7 +102,7 @@ const popupProfile = new PopupWithForm({
                 console.log(err);
             })
             .finally(() => {
-                renderLoading(false, buttonForm, "", "Сохранить");
+                popupProfile.renderLoading(false, " ", "Сохранить");
             });
     }
 });
@@ -125,8 +112,9 @@ popupProfile.setEventListeners();
 editButton.addEventListener('click', () => {
     formProfileValidator.clearErrorsHandler();
     popupProfile.open();
-    popupNameElement.value = profile.getUserInfo().name;
-    popupSublineElement.value = profile.getUserInfo().about;
+    const { name, about } = profile.getUserInfo();
+    popupNameElement.value = name;
+    popupSublineElement.value = about;
 });
 
 const formCardValidator = new FormValidator(dataValidation, popupCardForm);
@@ -134,18 +122,24 @@ formCardValidator.enableValidation();
 
 const popupAddCard = new PopupWithForm({
     popupElement: popupAddCards,
-    handleForm: (dataPopup, buttonForm) => {
-        renderLoading(true, buttonForm, "Сохранение...", "");
-        card.addNewCard(dataPopup)
+    handleForm: (dataPopup) => {
+        popupAddCard.renderLoading(true, "Сохранение...", " ");
+        dataUser.addNewCard(dataPopup)
             .then((cardInfo) => {
-                const cardElement = createCard(cardInfo).createCardTemplate();
-                cardList.append(cardElement);
+                const newCard = new Section({
+                    data: [cardInfo],
+                    renderer: (item) => {
+                        const newCardElement = createCard(item).createCardTemplate();
+                        newCard.addItem(newCardElement);
+                    }
+                }, cardList);
+                newCard.renderItems();
             })
             .catch((err) => {
                 console.log(err);
             })
             .finally(() => {
-                renderLoading(false, buttonForm, "", "Создать");
+                popupAddCard.renderLoading(false, " ", "Создать");
             });
     }
 });
@@ -157,16 +151,14 @@ addButton.addEventListener('click', () => {
     popupAddCard.open();
 });
 
-const profileApi = new Api('https://mesto.nomoreparties.co/v1/cohort-43/users/me/avatar');
-
 const formAvatarValidator = new FormValidator(dataValidation, popupFormAvatar);
 formAvatarValidator.enableValidation();
 
 const popupProfileAvatar = new PopupWithForm({
     popupElement: popupAvatar,
-    handleForm: (dataPopup, buttonForm) => {
-        renderLoading(true, buttonForm, "Сохранение...", "");
-        profileApi.updatePhotoProfile(dataPopup)
+    handleForm: (dataPopup) => {
+        popupProfileAvatar.renderLoading(true, "Сохранение...", " ");
+        dataUser.updatePhotoProfile(dataPopup)
             .then((profileInfo) => {
                profileAvatar.setAttribute('src', profileInfo.avatar);
             })
@@ -174,7 +166,7 @@ const popupProfileAvatar = new PopupWithForm({
                 console.log(err);
             })
             .finally(() => {
-                renderLoading(false, buttonForm, "", "Сохранить");
+                popupProfileAvatar.renderLoading(false, " ", "Сохранить");
             });
     }
 });
