@@ -14,7 +14,7 @@
     background-color: rgba(0,0,0,.5);
     background-position: center;
     cursor: pointer;
-    background-image: url(../../../../images/profile-vector.svg);
+    background-image: url(../../../../src/images/profile-vector.svg);
 }
 
 .profile__avatar:hover .profile__avatar_hover {
