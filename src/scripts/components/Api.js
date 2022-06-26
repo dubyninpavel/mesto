@@ -24,11 +24,7 @@ export default class Api {
             headers: this.headers,
         })
         .then((res) => {
-            //this._getPromiseResult(res);
-            if(res.ok) {
-                return res.json();
-            }
-            return Promise.reject('Возникла ошибка');
+            return this._getPromiseResult(res);
         });
     }
 
@@ -38,11 +34,7 @@ export default class Api {
             headers: this.headers,
         })
         .then((res) => {
-            //this._getPromiseResult(res);
-            if(res.ok) {
-                return res.json();
-            }
-            return Promise.reject('Возникла ошибка');
+            return this._getPromiseResult(res);
         })
     }
 
@@ -56,10 +48,7 @@ export default class Api {
             })
         })
         .then((res) => {
-            if(res.ok) {
-                return res.json();
-            }
-            return Promise.reject('Возникла ошибка');
+            return this._getPromiseResult(res);
         })
     }
 
@@ -73,10 +62,7 @@ export default class Api {
             })
         })
         .then((res) => {
-            if(res.ok) {
-                return res.json();
-            }
-            return Promise.reject('Возникла ошибка');
+            return this._getPromiseResult(res);
         })
     }
 
@@ -86,10 +72,7 @@ export default class Api {
             headers: this.headers,
         })
         .then((res) => {
-            if(res.ok) {
-                return res.json();
-            }
-            return Promise.reject('Возникла ошибка');
+            return this._getPromiseResult(res);
         })
     }
 
@@ -99,10 +82,7 @@ export default class Api {
             headers: this.headers,
         })
         .then((res) => {
-            if(res.ok) {
-                return res.json();
-            }
-            return Promise.reject('Возникла ошибка');
+            return this._getPromiseResult(res);
         })
     }
 
@@ -112,10 +92,7 @@ export default class Api {
             headers: this.headers,
         })
         .then((res) => {
-            if(res.ok) {
-                return res.json();
-            }
-            return Promise.reject('Возникла ошибка');
+            return this._getPromiseResult(res);
         })
     }
 
@@ -128,10 +105,7 @@ export default class Api {
             })
         })
         .then((res) => {
-            if(res.ok) {
-                return res.json();
-            }
-            return Promise.reject('Возникла ошибка');
+            return this._getPromiseResult(res);
         })
     }
 }
