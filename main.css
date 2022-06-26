@@ -565,7 +565,7 @@ template {
     display: inline-block;
 }
 
-.profile__avatar_hover {
+.profile__cursor {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -579,10 +579,10 @@ template {
     background-image: url(b5e18a5e34c06a364f74.svg);
 }
 
-.profile__avatar:hover .profile__avatar_hover {
+.profile__avatar:hover .profile__cursor {
     opacity: 1;
 }
-.profile__avatar_image {
+.profile__image {
     display: block;
     background-size: cover;
     box-sizing: border-box;
