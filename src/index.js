@@ -1,6 +1,6 @@
 import './styles/index.css';
 
-import { popupProfileForm, profileAvatar, popupAvatar, popupFormAvatar, popupDeleteCard, popupNameElement, popupSublineElement, popupAddCards, popupCardForm, editButton, addButton, popupEditProfile, popupPhoto, cardList, cardTemplate } from "./scripts/utils/constants.js";
+import { popupProfileForm, profileAvatar, profileImage, popupAvatar, popupFormAvatar, popupDeleteCard, popupNameElement, popupSublineElement, popupAddCards, popupCardForm, editButton, addButton, popupEditProfile, popupPhoto, cardList, cardTemplate } from "./scripts/utils/constants.js";
 import { dataValidation } from "./scripts/utils/dataValidation.js";
 import Card from "./scripts/components/Card.js";
 import FormValidator from "./scripts/components/FormValidator.js";
@@ -11,9 +11,9 @@ import UserInfo from "./scripts/components/UserInfo.js";
 import Api from "./scripts/components/Api.js";
 import PopupWithSubmit from "./scripts/components/PopupWithSubmit.js";
 
-let myId = "";
+let myId = " ";
 
-const profile = new UserInfo({nameSelector: ".profile__name", infoSelector: ".profile__subline", imageSelector: ".profile__avatar"});
+const profile = new UserInfo({nameSelector: ".profile__name", infoSelector: ".profile__subline", imageSelector: ".profile__image"});
 
 const dataUser = new Api('https://nomoreparties.co/v1/cohort-43');
 
@@ -73,8 +73,10 @@ function createCard(item) {
             popupDelete.setHandleSubmit(() => {
                 dataUser.deleteCard(cardInfo._dataCard._id)
                     .then(() => {
-                        popupDelete.close();
                         newCard.deleteCardElement();
+                    })
+                    .then(() => {
+                        popupDelete.close();
                     })
                     .catch((err) => {
                         console.log(err);
@@ -99,6 +101,9 @@ const popupProfile = new PopupWithForm({
         dataUser.setDataUser(dataPopup)
             .then((dataUser) => {
                 profile.setUserInfo(dataUser);
+            })
+            .then(() => {
+                popupProfile.close();
             })
             .catch((err) => {
                 console.log(err);
@@ -128,6 +133,7 @@ const popupAddCard = new PopupWithForm({
         popupAddCard.renderLoading(true, "Сохранение...", " ");
         dataUser.addNewCard(dataPopup)
             .then((cardInfo) => {
+                const CardElement = createCard(cardInfo).createCardTemplate();
                 const newCard = new Section({
                     data: [cardInfo],
                     renderer: (item) => {
@@ -136,6 +142,10 @@ const popupAddCard = new PopupWithForm({
                     }
                 }, cardList);
                 newCard.renderItems();
+
+            })
+            .then(() => {
+                popupAddCard.close();
             })
             .catch((err) => {
                 console.log(err);
@@ -162,7 +172,10 @@ const popupProfileAvatar = new PopupWithForm({
         popupProfileAvatar.renderLoading(true, "Сохранение...", " ");
         dataUser.updatePhotoProfile(dataPopup)
             .then((profileInfo) => {
-               profileAvatar.setAttribute('src', profileInfo.avatar);
+                profileImage.setAttribute('src', profileInfo.avatar);
+            })
+            .then(() => {
+                popupProfileAvatar.close();
             })
             .catch((err) => {
                 console.log(err);
