@@ -12,6 +12,7 @@ import Api from "./scripts/components/Api.js";
 import PopupWithSubmit from "./scripts/components/PopupWithSubmit.js";
 
 let myId = " ";
+let cardGridList = "";
 
 const profile = new UserInfo({nameSelector: ".profile__name", infoSelector: ".profile__subline", imageSelector: ".profile__image"});
 
@@ -24,7 +25,7 @@ dataUser.getAllData()
         myId = dataFromUserPromise._id;
         profile.setUserInfo(dataFromUserPromise);
 
-        const cardGridList = new Section({
+        cardGridList = new Section({
             data: dataFromCardsPromise,
             renderer: (item) => {
                 const cardElement = createCard(item).createCardTemplate();
@@ -134,15 +135,7 @@ const popupAddCard = new PopupWithForm({
         dataUser.addNewCard(dataPopup)
             .then((cardInfo) => {
                 const CardElement = createCard(cardInfo).createCardTemplate();
-                const newCard = new Section({
-                    data: [cardInfo],
-                    renderer: (item) => {
-                        const newCardElement = createCard(item).createCardTemplate();
-                        newCard.addItem(newCardElement);
-                    }
-                }, cardList);
-                newCard.renderItems();
-
+                cardGridList.addItem(CardElement);
             })
             .then(() => {
                 popupAddCard.close();
